@@ -1,0 +1,23 @@
+{
+ "name: "Excel File Conversion Project",
+   "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "workbench.colorTheme": "Monokai"
+            },
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/desktop-lite": {}
+    },
+    "forwardPorts": [6080],
+    "portsAttributes": {
+        "6080": {
+            "label": "desktop"
+        }
+    }
+}

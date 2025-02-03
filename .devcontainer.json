@@ -1,6 +1,11 @@
 {
+ "name: "Excel File Conversion Project",
+   "image": "",
     "customizations": {
         "vscode": {
+            "settings": {
+                "workbench.colorTheme": "Monokai"
+            },
             "extensions": [
                 "ms-python.python"
             ]

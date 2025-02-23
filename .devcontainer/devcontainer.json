@@ -7,7 +7,8 @@
                 "workbench.colorTheme": "Monokai"
             },
             "extensions": [
-                "ms-python.python"
+                "ms-python.python",
+                "mechatroner.rainbow-csv"
             ]
         }
     },
@@ -19,5 +20,6 @@
         "6080": {
             "label": "desktop"
         }
-    }
+    },
+     "postCreateCommand": "pip install --user -r requirements.txt",
 }

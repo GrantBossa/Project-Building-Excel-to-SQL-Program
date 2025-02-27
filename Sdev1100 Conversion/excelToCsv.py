@@ -117,5 +117,4 @@ def main():
 
 if __name__ == '__main__' :
     main()
-# 1. Week5Reading.pdf https://westernwyoming.instructure.com/courses/17647/files/2687613?wrap=1
-# 2. https://pandas.pydata.org/docs/reference/io.htmlLinks to an external site.
+

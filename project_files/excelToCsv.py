@@ -10,7 +10,6 @@ import os               # file and directory navigation
 import pandas as pd     # Excel file manipulation
 
 # Initalize Variables
-
 all_data = []                       # For creating csv file
 
 def traverse_and_convert(directory):
@@ -21,7 +20,6 @@ def traverse_and_convert(directory):
                 countOfExcelFilesFound += 1
                 file_path = os.path.join(root, file)
                 convert_to_csv_format(file_path)
-
     # If there were no files found processing
     if countOfExcelFilesFound == 0 :
         print(f"Error: No Excel Files found in the directory '{directory}' ")

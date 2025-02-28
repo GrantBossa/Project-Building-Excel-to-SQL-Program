@@ -5,16 +5,13 @@
 # excelToCsv.py
 #
 
-import sys
-import os
-import pandas as pd
+import sys              # command line arguments
+import os               # file and directory navigation
+import pandas as pd     # Excel file manipulation
 
 # Initalize Variables
 
-all_data = []                       # Set up for creating csv file
-total_row_count_of_datafile = 0     # Acumulator for verifying row counts added
-
-
+all_data = []                       # For creating csv file
 
 def traverse_and_convert(directory):
     countOfExcelFilesFound = 0
@@ -23,47 +20,33 @@ def traverse_and_convert(directory):
             if file.endswith('.xlsx') or file.endswith('.xls'):
                 countOfExcelFilesFound += 1
                 file_path = os.path.join(root, file)
-                convert_to_csv(file_path)
+                convert_to_csv_format(file_path)
+
+    # If there were no files found processing
     if countOfExcelFilesFound == 0 :
-        print("Error: No Excel Files found!")
+        print(f"Error: No Excel Files found in the directory '{directory}' ")
         sys.exit(1)  # Exit with an error code - incorrect arguments for program to run
 
-def convert_to_csv(file_path):
-    '''
-    # Example usage excel_to_csv
-        excel_file_path = 'your_excel_file.xlsx'
-        csv_file_path = 'combined_output.csv'
-        # You can use path and filename as arguments
-            excel_to_csv(excel_file_path, csv_file_path)
-        # Or you can use just the filename
-            excel_to_csv(excel_file, csv_file):
-    '''
+def convert_to_csv_format(file_path): 
+    # Used to create the dataframe before converting to csv file
     try:
+        # Read Excel file and get all worksheets
         excel_data = pd.read_excel(file_path, sheet_name=None)
 
+        # for each worksheet in the file
         for sheet_name, df in excel_data.items():
-            #calculate row total
-            #total_row_count_of_datafile += 1
-
             # Add metadata columns
-            df['From file'] = file_path
-            df['Worksheet'] = sheet_name
-            df['Row number'] = df.index + 1
+            df['From File'] = file_path             # file path 
+            df['From Worksheet'] = sheet_name       # Worksheet name
+            df['From Row Number'] = df.index + 1    # Row count
+            df['From Col Count'] = df.shape[1]-3    # Column count (minus 3 added columns)
 
-            all_data.append(df)
+            all_data.append(df)                     # Add records to all_data 
 
-            #print(f"{df.shape[0]}, {total_row_count_of_datafile}") # row count of datafile
-            #print(f"Appending {file_path} worksheet {sheet_name}")
+        combined_df = pd.concat(all_data)           # save dataframe data
 
-        combined_df = pd.concat(all_data)
-
-        #print(f"Converted {file_path}")
     except Exception as e:
         print(f"Failed to convert {file_path}: {e}")
-
-# Control the column format of appended dataframes
-def sort_columns(df, column_order):
-    return df[column_order]
 
 def main():
     try :
@@ -71,8 +54,9 @@ def main():
         if len(sys.argv) != 3:
             print(f"Usage: {sys.argv[0]} output.csv dirOfExcelfiles/")
             sys.exit(1)  # Exit with an error code - incorrect arguments for program to run
-
-        if ((type(sys.argv[1]) == str) and (sys.argv[1].endswith(".csv"))):
+        
+        if ((type(sys.argv[1]) == str) 
+            and (sys.argv[1].lower().endswith(".csv"))):
             csv_file = sys.argv[1]              # Set csv filename
         else:
             print(f"The output file should be a .csv filename! : Usage: {sys.argv[0]} output.csv dirOfExcelfiles/")
@@ -80,7 +64,8 @@ def main():
 
         # Set Directory to traverse for Excel files to convert
         traverse_directory = sys.argv[2]    
-        
+        total_row_count_of_datafile = 0     # Acumulator for verifying row counts added
+
         # verify traverse path is valid
         if (os.path.isdir(traverse_directory)):
             traverse_and_convert(traverse_directory)
@@ -101,14 +86,10 @@ def main():
         combined_df['Pressure'] = combined_df['Pressure'].round(1)  
     
         # Specify the desired column order and sort
-        column_order = ['From file', 'Worksheet', 'Row number', 'Date', 'Time', 
-                        'Machine ID', 'Sensor 1', 'Sensor 2', 'Temperature', 'Pressure', 
-                        'Flow Rate', 'Status', 'Employee']
-        sorted_df = sort_columns(combined_df, column_order)
+        column_order = ['Date', 'Time', 'Machine ID', 'Sensor 1', 'Sensor 2', 'Temperature', 'Pressure', 
+                        'Flow Rate', 'Status', 'Employee', 'From File', 'From Worksheet', 'From Row Number', 'From Col Count']
+        sorted_df = combined_df[column_order]
 
-        #print(f"total rows added: {total_row_count_of_datafile}")
-        #print(f"total rows of df: {sorted_df.shape[0]}")
-            
         # Write the completed file
         sorted_df.to_csv(csv_file, index=False)
 
@@ -120,9 +101,6 @@ def main():
     except Exception as e:
         print(f" {Exception}: {e}")
 
-    
-    
-
 if __name__ == '__main__' :
     main()
-
+    

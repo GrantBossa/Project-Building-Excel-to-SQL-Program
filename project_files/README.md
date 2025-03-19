@@ -1,6 +1,6 @@
 # Excel-to-SQL
-'''
-The excelToCsv.py file is used for the following:
+
+# The excelToCsv.py file is used for the following:
 
   a. Traverse a given file directory to locate XLSX files.
 

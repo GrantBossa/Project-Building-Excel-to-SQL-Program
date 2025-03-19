@@ -1,5 +1,8 @@
 # Excel-to-SQL
 
+# The correct commandline usage is:
+#  excelToCsv.py output.csv directory_to_traverse
+
 # The excelToCsv.py file is used for the following:
 
   a. Traverse a given file directory to locate XLSX files.
@@ -23,8 +26,5 @@ Errors will be executed for the following:
 
 A mock-filesystem is provided in order to see how this program functions.
 
-To use this directory, in the command below 
+To use this directory, in the command above 
 substitute directory_to_traverse with mock-filesystem 
-
-The correct commandline usage is:
-  excelToCsv.py output.csv directory_to_traverse/

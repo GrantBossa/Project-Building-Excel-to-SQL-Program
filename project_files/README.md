@@ -1,5 +1,8 @@
 # Excel-to-SQL
 
+# The correct commandline usage is:
+#  excelToCsv.py output.csv dirOfExcelFiles
+
 # The excelToCsv.py file is used for the following:
 
   a. Traverse a given file directory to locate XLSX files.
@@ -12,19 +15,29 @@
   
   c. Create a single CSV formated file.
 
+# ----------------------------------------------
 A successfully executed program should leave behind one CSV file in the directory
-the program was executed in, with the name supplied in the arguments.
+the program was executed in, with the name supplied in the arguments. 
+If this file already exists, it will be overwritten.
 
+Note: 
+Be advised that audit trail fields have been added to the output file in order to verify files processed. I used them to verify complete processing of the Excel files.
+These can be deleted or commented out based upon your need.
+
+
+# ----------------------------------------------
 Errors will be executed for the following:
 
-  a. Not using a .csv extension for the output file.
+  a. Not using the correct commandline format.
   
-  b. Using an directory to traverse that has no .xlsx files.
+  b. Not using a .csv extension for the output file.
+  
+  c. Using an directory to traverse that has no .xlsx files.
 
-A mock-filesystem is provided in order to see how this program functions.
+  d. Failing to convert files, for any reason, before writing the output file.
 
-To use this directory, in the command below 
-substitute directory_to_traverse with mock-filesystem 
+# ----------------------------------------------
+mock-filesystem and empty-filesystem directories are provided in order to see how this program functions.
 
-The correct commandline usage is:
-  excelToCsv.py output.csv directory_to_traverse/
+To use this directory, in the command above 
+substitute dirOfExcelFiles with mock-filesystem 

@@ -1,8 +1,8 @@
 # 
+# excelToCsv.py
 # Grant Bossa
 # SDEV 1100
 # 2/27/2025
-# excelToCsv.py
 #
 
 import sys              # command line arguments
@@ -13,7 +13,7 @@ import pandas as pd     # Excel file manipulation
 all_data = []                       # For creating csv file
 
 def traverse_and_convert(directory):
-    countOfExcelFilesFound = 0
+    countOfExcelFilesFound = 0      # Verify number of files found
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.xlsx') or file.endswith('.xls'):
@@ -34,14 +34,12 @@ def convert_to_csv_format(file_path):
         # for each worksheet in the file
         for sheet_name, df in excel_data.items():
             # Add metadata columns
-            df['From File'] = file_path             # file path 
-            df['From Worksheet'] = sheet_name       # Worksheet name
-            df['From Row Number'] = df.index + 1    # Row count
-            df['From Col Count'] = df.shape[1]-3    # Column count (minus 3 added columns)
+            df['From File'] = file_path             # save File path 
+            df['From Worksheet'] = sheet_name       # Save Worksheet name
+            df['From Row Number'] = df.index + 1    # Save Row count
+            df['From Col Count'] = df.shape[1]-3    # Save Column count (minus 3 added columns)
 
             all_data.append(df)                     # Add records to all_data 
-
-        combined_df = pd.concat(all_data)           # save dataframe data
 
     except Exception as e:
         print(f"Failed to convert {file_path}: {e}")
@@ -50,19 +48,18 @@ def main():
     try :
         # Verify correct program arguments are being used
         if len(sys.argv) != 3:
-            print(f"Usage: {sys.argv[0]} output.csv dirOfExcelfiles/")
+            print(f"Usage: {sys.argv[0]} output.csv dirOfExcelFiles/")
             sys.exit(1)  # Exit with an error code - incorrect arguments for program to run
         
         if ((type(sys.argv[1]) == str) 
             and (sys.argv[1].lower().endswith(".csv"))):
             csv_file = sys.argv[1]              # Set csv filename
         else:
-            print(f"The output file should be a .csv filename! : Usage: {sys.argv[0]} output.csv dirOfExcelfiles/")
+            print(f"The output file should be a .csv filename! : Usage: {sys.argv[0]} output.csv dirOfExcelFiles/")
             sys.exit(1)  # Exit with an error code - incorrect arguments for program to run
 
         # Set Directory to traverse for Excel files to convert
         traverse_directory = sys.argv[2]    
-        total_row_count_of_datafile = 0     # Acumulator for verifying row counts added
 
         # verify traverse path is valid
         if (os.path.isdir(traverse_directory)):
@@ -86,10 +83,10 @@ def main():
         # Specify the desired column order and sort
         column_order = ['Date', 'Time', 'Machine ID', 'Sensor 1', 'Sensor 2', 'Temperature', 'Pressure', 
                         'Flow Rate', 'Status', 'Employee', 'From File', 'From Worksheet', 'From Row Number', 'From Col Count']
-        sorted_df = combined_df[column_order]
+        combined_df = combined_df[column_order]
 
         # Write the completed file
-        sorted_df.to_csv(csv_file, index=False)
+        combined_df.to_csv(csv_file, index=False)
 
         #if no errors. Print file created message
         print(f"CSV file {csv_file} created.")

@@ -40,4 +40,4 @@ Errors will be executed for the following:
 mock-filesystem and empty-filesystem directories are provided in order to see how this program functions.
 
 To use this directory, in the command above 
-substitute dirOfExcelFiles with mock-filesystem 
+substitute dirOfExcelFiles with either mock-filesystem or empty-filesystem.

@@ -88,8 +88,18 @@ def main():
         # Write the completed file
         combined_df.to_csv(csv_file, index=False)
 
-        #if no errors. Print file created message
+        # If no errors. Print file created message
         print(f"CSV file {csv_file} created.")
+
+        ''' COPIED CODE FROM VIDEO, IT NEEDS FLESHED OUT!!!!!
+        # Connect to SQL database
+        out_db_name = output_name + ".db"
+        table_name = "mine_data"
+        con = (sqlite).connect(out_db_name)
+        rows_stored = df.to_sql(table_name, con, if_exists = "fail", index=True)
+        con.close()
+        print(f"{out_db_name) successfully created with [rows_stored} rows")
+        '''
 
     except KeyboardInterrupt:
         print("Program interrupted by user.")

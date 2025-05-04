@@ -1,0 +1,1 @@
+# This directory is purposefully empty for testing programs directory access.

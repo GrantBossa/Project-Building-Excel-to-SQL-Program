@@ -1,6 +1,6 @@
 # Welcome to my Project!
 
-## In this project are 2 files.
+## In this project are 2 executable files along with a couple test directories. There is also a flask-tutorial directory for future application developement.
 
   ### [excelToCSV.py](excelToCSV.py)
 
